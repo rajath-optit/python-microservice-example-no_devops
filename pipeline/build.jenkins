@@ -1,0 +1,37 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                script {
+                    git branch: 'main',
+                        credentialsId: 'rajath-my-git-pat',
+                        url: 'https://github.com/rajath-optit/optit-lab-springmvc-example.git'
+                }
+            }
+        }
+        
+        stage('Build and Push Docker Images') {
+            steps {
+                script {
+                    docker.build("raorajath/python-producer:latest", "./producer")
+                    docker.build("raorajath/python-consumer-one:latest", "./consumer_one")
+                    docker.build("raorajath/python-consumer-two:latest", "./consumer_two")
+                    docker.build("raorajath/python-consumer-three:latest", "./consumer_three")
+                    docker.build("raorajath/python-consumer-four:latest", "./consumer_four")
+                }
+            }
+        }
+
+        stage('Deploy with Docker Compose') {
+            steps {
+                // Ensure Docker Compose is installed
+                sh 'docker-compose --version'
+                
+                // Deploy the application using Docker Compose
+                sh 'docker-compose -f docker-compose.yml up -d'
+            }
+        }
+    }
+}
