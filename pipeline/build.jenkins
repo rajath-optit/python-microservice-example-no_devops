@@ -30,7 +30,7 @@ pipeline {
                 sh 'docker-compose --version'
                 
                 // Deploy the application using Docker Compose
-                sh 'docker-compose -f docker-compose.yml up -d'
+                sh 'docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d'
             }
         }
     }
