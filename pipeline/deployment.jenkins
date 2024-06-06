@@ -15,7 +15,7 @@ pipeline {
     stage('Deploy to Kubernetes') {
             steps {
                 script {
-                    withCredentials([file(credentialsId: 'kubeconfig-credentials', variable: 'KUBECONFIG')]) {
+                    withCredentials([file(credentialsId: 'poc-kube-cluster-cred-1', variable: 'KUBECONFIG')]) {
                         sh 'kubectl apply -f k8s/namespace.yaml'
                         sh 'kubectl apply -f k8s/producer/deployment.yaml'
                         sh 'kubectl apply -f k8s/producer/service.yaml'
