@@ -1,4 +1,3 @@
-
 # Microservice communication with RabbitMQ
 Producer:
 
@@ -20,7 +19,6 @@ individual build step and correct command structure.
 After building the images, you can run the application using Docker Compose. Update your docker-compose.yml to use these images:
 
 push
-```bash
 # Log in to Docker Hub
 docker login
 
